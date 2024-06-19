@@ -1,15 +1,15 @@
-import { useState } from 'react';
 import Button from './components/Button/Button';
-import './App.css';
+import Input from './components/Input/Input';
+import './index.scss';
 
 function App() {
-    const [count, setCount] = useState(0);
-
-    return <>
-        <Button>
-            asdf
-        </Button>
-    </>;
+	return (
+		<>
+			<Button>asdfasdfasdf</Button>
+			<Button appearence={'big'}>asdfasdfasdf</Button>
+			<Input />
+		</>
+	);
 }
 
 export default App;
