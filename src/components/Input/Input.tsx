@@ -4,18 +4,18 @@ import cn from 'classnames';
 import s from './Input.module.scss';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-	{ isValid = true, className, ...props },
-	ref
+    { isValid = true, className, ...props },
+    ref
 ) {
-	return (
-		<input
-			ref={ref}
-			className={cn(s['input'], className, {
-				[s['invalid']]: isValid
-			})}
-			{...props}
-		/>
-	);
+    return (
+        <input
+            ref={ref}
+            className={cn(s['input'], className, {
+                [s['invalid']]: isValid,
+            })}
+            {...props}
+        />
+    );
 });
 
 export default Input;
