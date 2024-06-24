@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispath, RootState } from '../../store/store';
+import { AppDispatch, RootState } from '../../store/store';
 import { getProfile, userActions } from '../../store/user.slice';
 import { useEffect } from 'react';
 import cn from 'classnames';
@@ -9,9 +9,9 @@ import styles from './MenuLayout.module.scss';
 
 export function MenuLayout() {
     const navigate = useNavigate();
-    const dispatch = useDispatch<AppDispath>();
+    const dispatch = useDispatch<AppDispatch>();
     const profile = useSelector((s: RootState) => s.user.profile);
-    // const items = useSelector((s: RootState) => s.cart.items);
+    const items = useSelector((s: RootState) => s.cart.items);
 
     useEffect(() => {
         dispatch(getProfile());
@@ -55,7 +55,10 @@ export function MenuLayout() {
                         <img src='/cart-icon.svg' alt='Иконка корзины' />
                         Корзина{' '}
                         <span className={styles['cart-count']}>
-                            {/* {items.reduce((acc, item) => acc += item.count, 0)} */}
+                            {items.reduce(
+                                (acc, item) => (acc += item.count),
+                                0
+                            )}
                         </span>
                     </NavLink>
                 </div>
