@@ -2,11 +2,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Headling from '../../components/Headling/Headling';
 import Input from '../../components/Input/Input';
-import styles from '../Login/Login.module.css';
 import { FormEvent, useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { AppDispath, RootState } from '../../store/store';
-// import { register, userActions } from '../../store/user.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { register, userActions } from '../../store/user.slice';
+import styles from '../Login/Login.module.scss';
 
 export type RegisterForm = {
     email: {
@@ -22,27 +22,35 @@ export type RegisterForm = {
 
 export function Register() {
     const navigate = useNavigate();
-    // const dispatch = useDispatch<AppDispath>();
-    // const { jwt, registerErrorMessage } = useSelector((s: RootState) => s.user);
+    const dispatch = useDispatch<AppDispatch>();
+    const { jwt, registerErrorMessage } = useSelector((s: RootState) => s.user);
 
-    // useEffect(() => {
-    // 	if (jwt) {
-    // 		navigate('/');
-    // 	}
-    // }, [jwt, navigate]);
+    useEffect(() => {
+        if (jwt) {
+            navigate('/');
+        }
+    }, [jwt, navigate]);
 
     const submit = async (e: FormEvent) => {
         e.preventDefault();
-        // dispatch(userActions.clearRegisterError());
-        // const target = e.target as typeof e.target & RegisterForm;
-        // const { email, password, name } = target;
-        // dispatch(register({ email: email.value, password: password.value, name: name.value }));
+        dispatch(userActions.clearRegisterError());
+        const target = e.target as typeof e.target & RegisterForm;
+        const { email, password, name } = target;
+        dispatch(
+            register({
+                email: email.value,
+                password: password.value,
+                name: name.value,
+            })
+        );
     };
 
     return (
         <div className={styles['login']}>
             <Headling>Регистрация</Headling>
-            {/* {registerErrorMessage && <div className={styles['error']}>{registerErrorMessage}</div>} */}
+            {registerErrorMessage && (
+                <div className={styles['error']}>{registerErrorMessage}</div>
+            )}
             <form className={styles['form']} onSubmit={submit}>
                 <div className={styles['field']}>
                     <label htmlFor='email'>Ваш email</label>

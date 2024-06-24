@@ -1,23 +1,21 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import styles from './MenuLayout.module.scss';
 import Button from '../../components/Button/Button';
-import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispath, RootState } from '../../store/store';
 import { getProfile, userActions } from '../../store/user.slice';
-import { IProduct } from '../../interfaces/product.interface';
-import { PREFIX } from '../../helpers/API';
 import { useEffect } from 'react';
+import cn from 'classnames';
+import styles from './MenuLayout.module.scss';
 
 export function MenuLayout() {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispath>();
-    // const profile = useSelector((s: RootState) => s.user.profile);
+    const profile = useSelector((s: RootState) => s.user.profile);
     // const items = useSelector((s: RootState) => s.cart.items);
 
-    // useEffect(() => {
-    // 	dispatch(getProfile());
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(getProfile());
+    }, [dispatch]);
 
     const logout = () => {
         dispatch(userActions.logout());
@@ -33,8 +31,8 @@ export function MenuLayout() {
                         src='/avatar.png'
                         alt='Аватар пользователя'
                     />
-                    {/* <div className={styles['name']}>{profile?.name}</div> */}
-                    {/* <div className={styles['email']}>{profile?.email}</div> */}
+                    <div className={styles['name']}>{profile?.name}</div>
+                    <div className={styles['email']}>{profile?.email}</div>
                 </div>
                 <div className={styles['menu']}>
                     <NavLink
